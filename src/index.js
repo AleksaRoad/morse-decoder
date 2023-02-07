@@ -35,10 +35,25 @@ const MORSE_TABLE = {
     '---..':  '8',
     '----.':  '9',
     '-----':  '0',
+    'NaN':    ' ',
 };
 
 function decode(expr) {
-    // write your solution here
+const len = 10;
+//дробим строк на части из 10 символов
+const pattern = new RegExp(".{1," + len + "}", "ig");
+let res = expr.match(pattern);
+//убираем нули с помощью Number, возвращаем строчное значение
+  let b = String(res.map(x => Number(x)))
+//заменяем 11 на "-" и 10 на "." 
+  let rep = b.replace(/11/gi, "-").replace(/10/gi, ".")
+//создаем массив по ","
+  let arr = rep.split(",")
+//декодируем по таблице, преобразуем массив в строку  
+  let code = arr.map(x => MORSE_TABLE[x]).join("")
+
+
+  return code
 }
 
 module.exports = {
